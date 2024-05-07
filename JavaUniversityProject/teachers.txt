@@ -1,0 +1,4 @@
+HighSchoolTeacher,John Doe,5,Grade 10,30
+CollegeTeacher,Jane Smith,10,Professor,2015
+HighSchoolTeacher,Michael Johnson,8,Grade 11,35
+CollegeTeacher,Emily Davis,13,Associate Professor,2011
