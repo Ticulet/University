@@ -148,21 +148,43 @@ public class TeacherManager extends Frame implements ActionListener {
             String grade = gradeField.getText();
             int nrOfHours = Integer.parseInt(nrOfHoursField.getText());
             HighSchoolTeacher teacher = new HighSchoolTeacher(name, experience, grade, nrOfHours);
-            teachers.add(teacher);
-            teacherList.add(teacher.toString());
+            if (isDuplicate(teacher)) {
+                showMessageDialog("A teacher with the same name and experience already exists.", "Duplicate Entry");
+            } else {
+                teachers.add(teacher);
+                teacherList.add(teacher.toString());
+                clearFields();
+                addDialog.setVisible(false);
+                saveTeachers();
+            }
         } else if (collegeRadio.getState()) {
             String name = nameField.getText();
             int experience = Integer.parseInt(experienceField.getText());
             String title = titleField.getText();
             int yearOfEmployment = Integer.parseInt(yearOfEmploymentField.getText());
             CollegeTeacher teacher = new CollegeTeacher(name, experience, title, yearOfEmployment);
-            teachers.add(teacher);
-            teacherList.add(teacher.toString());
+            if (isDuplicate(teacher)) {
+                showMessageDialog("A teacher with the same name and experience already exists.", "Duplicate Entry");
+            } else {
+                teachers.add(teacher);
+                teacherList.add(teacher.toString());
+                clearFields();
+                addDialog.setVisible(false);
+                saveTeachers();
+            }
         }
-        clearFields();
-        addDialog.setVisible(false);
-        saveTeachers();
     }
+    private boolean isDuplicate(Teacher teacher) {
+        for (Teacher existingTeacher : teachers) {
+            if (existingTeacher.getClass().equals(teacher.getClass()) &&
+                    existingTeacher.name.equalsIgnoreCase(teacher.name) &&
+                    existingTeacher.experience == teacher.experience) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private void modifyTeacher() {
         int selectedIndex = teacherList.getSelectedIndex();
