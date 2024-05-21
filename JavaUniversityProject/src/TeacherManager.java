@@ -1,3 +1,6 @@
+package proiect;
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -523,11 +526,19 @@ public class TeacherManager extends Frame implements ActionListener {
     
             // Check if the source of the event is the addButton
             if (e.getSource() == addButton) {
-                // If the addButton is clicked, clear the input fields
-                clearFields();
-                // Show the add teacher dialog
-                addDialog.setVisible(true);
-            }
+            // Clear the input fields
+            clearFields();
+            // Reset the radio buttons
+            addDialog.setTitle("Add Teacher");
+            highSchoolRadio.setState(false);
+            collegeRadio.setState(false);
+            highSchoolRadio.setVisible(true);
+            collegeRadio.setVisible(true);
+
+            // Show the add teacher dialog
+            addDialog.setVisible(true);
+
+} 
             // Check if the source of the event is the modifyButton
             else if (e.getSource() == modifyButton) {
                 // If the modifyButton is clicked, call the method to modify a teacher
