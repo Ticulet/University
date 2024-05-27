@@ -1,4 +1,6 @@
-HighSchoolTeacher,John Doe,5,Grade 10,30
-CollegeTeacher,Jane Smith,10,Professor,2015
-HighSchoolTeacher,Michael Johnson,8,Grade 11,35
-CollegeTeacher,Emily Davis,13,Associate Professor,2011
+HighSchool Teacher,Ion Popescu,35,Matematică,10
+College Teacher,Elena Ionescu,40,Fizică,15
+HighSchool Teacher,Maria Popa,29,Istorie,5
+College Teacher,Gheorghe Georgescu,50,Chimie,20
+HighSchool Teacher,Ana Radu,45,Limba Română,18
+College Teacher,Vasile Marin,55,Biologie,25
