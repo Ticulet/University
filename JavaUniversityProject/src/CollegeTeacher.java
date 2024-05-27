@@ -1,4 +1,5 @@
-class CollegeTeacher extends Teacher {
+
+public class CollegeTeacher extends Teacher {
     public String title;
     public int yearOfEmployment;
 
@@ -9,7 +10,7 @@ class CollegeTeacher extends Teacher {
     }
 
     public String toString() {
-        return "College Teacher: " + name + ", Experience: " + experience +
+        return "College Teacher: Name: " + name + ", Experience: " + experience +
                 ", Title: " + title + ", Year of Employment: " + yearOfEmployment;
     }
 }
