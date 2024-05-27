@@ -134,11 +134,11 @@ public class TeacherManager extends Frame implements ActionListener {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts[0].equals("HighSchoolTeacher")) {
+                if (parts[0].equals("HighSchool Teacher")) {
                     // Add HighSchoolTeacher to the teachers list
                     teachers.add(new HighSchoolTeacher(parts[1], Integer.parseInt(parts[2]),
                             parts[3], Integer.parseInt(parts[4])));
-                } else if (parts[0].equals("CollegeTeacher")) {
+                } else if (parts[0].equals("College Teacher")) {
                     // Add CollegeTeacher to the teachers list
                     teachers.add(new CollegeTeacher(parts[1], Integer.parseInt(parts[2]),
                             parts[3], Integer.parseInt(parts[4])));
@@ -162,12 +162,12 @@ public class TeacherManager extends Frame implements ActionListener {
                 if (teacher instanceof HighSchoolTeacher) {
                     HighSchoolTeacher hsTeacher = (HighSchoolTeacher) teacher;
                     // Write HighSchoolTeacher information to the file
-                    writer.println("HighSchoolTeacher," + hsTeacher.name + "," + hsTeacher.experience +
+                    writer.println("HighSchool Teacher," + hsTeacher.name + "," + hsTeacher.experience +
                             "," + hsTeacher.grade + "," + hsTeacher.nrOfHours);
                 } else if (teacher instanceof CollegeTeacher) {
                     CollegeTeacher cTeacher = (CollegeTeacher) teacher;
                     // Write CollegeTeacher information to the file
-                    writer.println("CollegeTeacher," + cTeacher.name + "," + cTeacher.experience +
+                    writer.println("College Teacher," + cTeacher.name + "," + cTeacher.experience +
                             "," + cTeacher.title + "," + cTeacher.yearOfEmployment);
                 }
             }
@@ -186,7 +186,7 @@ public class TeacherManager extends Frame implements ActionListener {
         if (highSchoolRadio.getState()) {
             // Check for duplicate name
             if (isDuplicate(nameField.getText())) {
-                showMessageDialog("Teacher with the same name already exists.", "Duplicate Entry");
+                showMessageWindow("Teacher with the same name already exists.", "Duplicate Entry");
                 return;
             }
             // Get input values
@@ -206,7 +206,7 @@ public class TeacherManager extends Frame implements ActionListener {
         else if (collegeRadio.getState()) {
             // Check for duplicate name
             if (isDuplicate(nameField.getText())) {
-                showMessageDialog("Teacher with the same name already exists.", "Duplicate Entry");
+                showMessageWindow("Teacher with the same name already exists.", "Duplicate Entry");
                 return;
             }
             // Get input values
@@ -258,7 +258,7 @@ public class TeacherManager extends Frame implements ActionListener {
     private int textFieldValiation(String fieldValue, String fieldName) {
         // Check if the field value is empty
         if (fieldValue.isEmpty()) {
-            showMessageDialog("Please enter " + fieldName + ".", "Validation Error");
+            showMessageWindow("Please enter " + fieldName + ".", "Validation Error");
             return -1;
         }
 
@@ -267,34 +267,34 @@ public class TeacherManager extends Frame implements ActionListener {
 
             // Check for negative value
             if (value < 0) {
-                showMessageDialog(fieldName + " cannot be negative.", "Validation Error");
+                showMessageWindow(fieldName + " cannot be negative.", "Validation Error");
                 return -1;
             }
 
             // Validate based on field name
             if (fieldName.equals("number of hours") && value > 40) {
-                showMessageDialog("Number of hours cannot exceed 40.", "Validation Error");
+                showMessageWindow("Number of hours cannot exceed 40.", "Validation Error");
                 return -1;
             }
 
             if (fieldName.equals("years of experience") && value > 80) {
-                showMessageDialog("Years of experience cannot exceed 80.", "Validation Error");
+                showMessageWindow("Years of experience cannot exceed 80.", "Validation Error");
                 return -1;
             }
 
             if (fieldName.equals("year of employment") && value < 1900) {
-                showMessageDialog("Year of employment cannot be earlier than 1900.", "Validation Error");
+                showMessageWindow("Year of employment cannot be earlier than 1900.", "Validation Error");
                 return -1;
             }
 
             if (fieldName.equals("year of employment") && value > 2025) {
-                showMessageDialog("Year of employment cannot be later than 2025.", "Validation Error");
+                showMessageWindow("Year of employment cannot be later than 2025.", "Validation Error");
                 return -1;
             }
 
             return value;
         } catch (NumberFormatException ex) {
-            showMessageDialog("Please enter a valid number for " + fieldName + ".", "Validation Error");
+            showMessageWindow("Please enter a valid number for " + fieldName + ".", "Validation Error");
             return -1;
         }
     }
@@ -374,7 +374,7 @@ public class TeacherManager extends Frame implements ActionListener {
         // Check if a teacher is selected
         if (selectedIndex != -1) {
             // Show confirmation dialog before deleting
-            showConfirmationDialog("Are you sure you want to delete the selected teacher?", "Confirmation");
+            showConfirmationWindow("Are you sure you want to delete the selected teacher?", "Confirmation");
 
             // Save the teachers after deletion
             saveTeachers();
@@ -410,15 +410,15 @@ public class TeacherManager extends Frame implements ActionListener {
      * @param message the message to display
      * @param title the title of the dialog
      */
-    private void showConfirmationDialog(String message, String title) {
-        // Create a new dialog window with the specified title and set it to be modal
-        Dialog dialog = new Dialog(this, title, true);
+    private void showConfirmationWindow(String message, String title) {
+        // Create a new confirmationWindow window with the specified title and set it to be modal
+        Dialog confirmationWindow = new Dialog(this, title, true);
 
-        // Set the layout of the dialog window to a border layout
-        dialog.setLayout(new BorderLayout());
+        // Set the layout of the confirmationWindow window to a border layout
+        confirmationWindow.setLayout(new BorderLayout());
 
-        // Add a label with the message to the center of the dialog window
-        dialog.add(new Label(message), BorderLayout.CENTER);
+        // Add a label with the message to the center of the confirmationWindow window
+        confirmationWindow.add(new Label(message), BorderLayout.CENTER);
 
         // Create buttons for 'Yes' and 'No'
         Button yesButton = new Button("Yes");
@@ -433,29 +433,29 @@ public class TeacherManager extends Frame implements ActionListener {
                 teachers.remove(selectedIndex);
                 teacherList.remove(selectedIndex);
             }
-            // Close the dialog
-            dialog.dispose();
+            // Close the confirmationWindow
+            confirmationWindow.dispose();
         });
 
         // Action listener for the 'No' button
-        noButton.addActionListener(e -> dialog.dispose());
+        noButton.addActionListener(e -> confirmationWindow.dispose());
 
         // Create a panel for the buttons with a flow layout
         Panel buttonPanel = new Panel(new FlowLayout());
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
 
-        // Add the button panel to the bottom of the dialog window
-        dialog.add(buttonPanel, BorderLayout.SOUTH);
+        // Add the button panel to the bottom of the confirmationWindow window
+        confirmationWindow.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Pack the components within the dialog window
-        dialog.pack();
+        // Pack the components within the confirmationWindow window
+        confirmationWindow.pack();
 
-        // Set the location of the dialog window relative to 'this' component
-        dialog.setLocationRelativeTo(this);
+        // Set the location of the confirmationWindow window relative to 'this' component
+        confirmationWindow.setLocationRelativeTo(this);
 
-        // Make the dialog window visible
-        dialog.setVisible(true);
+        // Make the confirmationWindow window visible
+        confirmationWindow.setVisible(true);
     }
 
     /**
@@ -487,31 +487,31 @@ public class TeacherManager extends Frame implements ActionListener {
      * @param message the message to display
      * @param title the title of the dialog
      */
-    private void showMessageDialog(String message, String title) {
-        // Create a new dialog window with the specified title and set it to be modal
-        Dialog dialog = new Dialog(this, title, true);
+    private void showMessageWindow(String message, String title) {
+        // Create a new messageWindow window with the specified title and set it to be modal
+        Dialog messageWindow = new Dialog(this, title, true);
 
-        // Set the layout of the dialog window to a flow layout
-        dialog.setLayout(new FlowLayout());
+        // Set the layout of the messageWindow window to a flow layout
+        messageWindow.setLayout(new FlowLayout());
 
-        // Add a label with the message to the dialog window
-        dialog.add(new Label(message));
+        // Add a label with the message to the messageWindow window
+        messageWindow.add(new Label(message));
 
-        // Create an OK button and set its action to dispose of the dialog window when clicked
+        // Create an OK button and set its action to dispose of the messageWindow window when clicked
         Button okButton = new Button("OK");
-        okButton.addActionListener(e -> dialog.dispose());
+        okButton.addActionListener(e -> messageWindow.dispose());
 
-        // Add the OK button to the dialog window
-        dialog.add(okButton);
+        // Add the OK button to the messageWindow window
+        messageWindow.add(okButton);
 
-        // Pack the components within the dialog window
-        dialog.pack();
+        // Pack the components within the messageWindow window
+        messageWindow.pack();
 
-        // Set the location of the dialog window relative to 'this' component
-        dialog.setLocationRelativeTo(this);
+        // Set the location of the messageWindow window relative to 'this' component
+        messageWindow.setLocationRelativeTo(this);
 
-        // Make the dialog window visible
-        dialog.setVisible(true);
+        // Make the messageWindow window visible
+        messageWindow.setVisible(true);
     }
     /**
      * This method handles the actions performed by various buttons in the teacher management system.
@@ -563,7 +563,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Validate the name field
                     if (nameField.getText().trim().isEmpty()) {
                         // If the name field is empty, show an error message and return
-                        showMessageDialog("Please enter a name.", "Validation Error");
+                        showMessageWindow("Please enter a name.", "Validation Error");
                         return;
                     }
                     // Get the trimmed value of the name field
@@ -577,7 +577,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Validate the grade field
                     if (gradeField.getText().trim().isEmpty()) {
                         // If the grade field is empty, show an error message and return
-                        showMessageDialog("Please enter a grade.", "Validation Error");
+                        showMessageWindow("Please enter a grade.", "Validation Error");
                         return;
                     }
                     // Get the trimmed value of the grade field
@@ -600,7 +600,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Validate the name field
                     if (nameField.getText().trim().isEmpty()) {
                         // If the name field is empty, show an error message and return
-                        showMessageDialog("Please enter a name.", "Validation Error");
+                        showMessageWindow("Please enter a name.", "Validation Error");
                         return;
                     }
                     // Get the trimmed value of the name field
@@ -614,7 +614,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Validate the title field
                     if (titleField.getText().trim().isEmpty()) {
                         // If the title field is empty, show an error message and return
-                        showMessageDialog("Please enter a title.", "Validation Error");
+                        showMessageWindow("Please enter a title.", "Validation Error");
                         return;
                     }
                     // Get the trimmed value of the title field
@@ -646,7 +646,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Validate the name field
                     if (nameField.getText().trim().isEmpty()) {
                         // If the name field is empty, show an error message and return
-                        showMessageDialog("Please enter a name.", "Validation Error");
+                        showMessageWindow("Please enter a name.", "Validation Error");
                         return;
                     }
 
@@ -658,7 +658,7 @@ public class TeacherManager extends Frame implements ActionListener {
                     // Check for duplicate teacher names
                     if (isDuplicate(nameField.getText().trim())) {
                         // If a duplicate name exists, show an error message and return
-                        showMessageDialog("Teacher with the same name already exists.", "Duplicate Entry");
+                        showMessageWindow("Teacher with the same name already exists.", "Duplicate Entry");
                         return;
                     }
 
@@ -667,7 +667,7 @@ public class TeacherManager extends Frame implements ActionListener {
                         // Validate the grade field
                         if (gradeField.getText().trim().isEmpty()) {
                             // If the grade field is empty, show an error message and return
-                            showMessageDialog("Please enter a grade.", "Validation Error");
+                            showMessageWindow("Please enter a grade.", "Validation Error");
                             return;
                         }
 
@@ -684,7 +684,7 @@ public class TeacherManager extends Frame implements ActionListener {
                         // Validate the title field
                         if (titleField.getText().trim().isEmpty()) {
                             // If the title field is empty, show an error message and return
-                            showMessageDialog("Please enter a title.", "Validation Error");
+                            showMessageWindow("Please enter a title.", "Validation Error");
                             return;
                         }
 
@@ -700,7 +700,7 @@ public class TeacherManager extends Frame implements ActionListener {
                 // If neither the highSchoolRadio nor collegeRadio is selected
                 else {
                     // Show an error message to select a teacher type
-                    showMessageDialog("Please select a teacher type.", "Validation Error");
+                    showMessageWindow("Please select a teacher type.", "Validation Error");
                 }
             }
         }
