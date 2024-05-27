@@ -9,7 +9,7 @@ public class HighSchoolTeacher extends Teacher {
     }
 
     public String toString() {
-        return "High School Teacher: " + name + ", Experience: " + experience +
-                ", Grade: " + grade + ", Hours: " + nrOfHours;
+        return "HighSchool Teacher: Name: " + name + ", Experience: " + experience +
+                ", Grade: " + grade + ", Number of Hours: " + nrOfHours;
     }
 }
