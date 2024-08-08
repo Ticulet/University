@@ -1,7 +1,7 @@
+My first ever Java University Project. Done with AWT and basic I/O methods.
 A simple Java application for managing teacher records in educational institutions. This system allows you to add, modify, and delete records for both high school and college teachers.
-Features
 
-User-friendly Interface: Built with Java AWT for a smooth, desktop-like experience.
+Interface: Built with Java AWT.
 Dual Teacher Types: Manage both high school and college teacher records.
 CRUD Operations: Easily Create, Read, Update, and Delete teacher records.
 Data Persistence: Automatically saves teacher records to a file for future sessions.
