@@ -1,4 +1,4 @@
-A simple yet powerful Java application for managing teacher records in educational institutions. This system allows you to add, modify, and delete records for both high school and college teachers.
+A simple Java application for managing teacher records in educational institutions. This system allows you to add, modify, and delete records for both high school and college teachers.
 Features
 
 User-friendly Interface: Built with Java AWT for a smooth, desktop-like experience.
